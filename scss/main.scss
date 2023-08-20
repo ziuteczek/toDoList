@@ -11,7 +11,7 @@ html {
 body {
   background-color: #eee;
   height: 100vh;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
 }
 .wrapper {
   max-width: 1200px;
@@ -23,6 +23,7 @@ body {
 main {
   height: 100vh;
   display: flex;
+  justify-content: space-between;
 }
 .to-do-list {
   border: 5px solid #ccc;
@@ -63,5 +64,30 @@ main {
     font-size: 3rem;
     align-self: center;
     justify-self: center;
+  }
+}
+.event-input {
+  display: flex;
+  flex-direction: column; 
+  align-self: center;
+  justify-self: flex-end;
+  label {
+    font-size: 5rem;
+  }
+  input {
+    font-size: 5rem;
+  }
+  textarea {
+    resize: none;
+    font-size: 2rem;
+  }
+  input, textarea {
+    margin-bottom: 3rem;
+  }
+  .event-title {
+    width: 70%;
+  }
+  .description-input {
+    height: 300px;
   }
 }
