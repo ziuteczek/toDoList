@@ -8,9 +8,12 @@
       src="https://kit.fontawesome.com/fb71ead59f.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
@@ -19,7 +22,9 @@
         <div class="task">
           <h3 class="task__title">Title</h3>
           <p class="task__date">21-01-2007</p>
-          <i class="fa-solid fa-trash task__delete" style="color: #cc0000"></i>
+          <button class="task__delete-btn">
+            <i class="fa-solid fa-trash task__delete" style="color: #cc0000"></i>
+          </button>
           <p class="task__description">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa,
             rerum? Quae facere veritatis fugiat officia, nemo dicta perspiciatis
@@ -30,11 +35,12 @@
       </div>
       <form class="event-input">
         <label>Task title</label>
-        <input type="text" class="event-title" />
+        <input type="text" class="event-title task__input" />
         <label>Task description</label>
-        <textarea class="description-input"></textarea>
+        <textarea class="description-input task__input"></textarea>
         <label>Date</label>
-        <input type="date" />
+        <input type="date" class="task-date task__input" />
+        <button type="button" class="submit">Submit</button>
       </form>
     </main>
     <script src="./js/main.js"></script>

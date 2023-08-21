@@ -72,12 +72,22 @@ main {
   align-self: center;
   justify-self: center;
 }
+.task .task__delete-btn {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+}
 
 .event-input {
   display: flex;
   flex-direction: column;
   align-self: center;
   justify-self: flex-end;
+  margin-left: 10px;
 }
 .event-input label {
   font-size: 5rem;
@@ -97,4 +107,14 @@ main {
 }
 .event-input .description-input {
   height: 300px;
+}
+.event-input button {
+  padding: 1em 0.5em;
+  background-color: rgb(33, 136, 33);
+  box-shadow: none;
+  color: #ccc;
+  text-transform: uppercase;
+  font-size: 3rem;
+  width: 100%;
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */
