@@ -11,6 +11,9 @@ const taskDesc = document.querySelector(".description-input");
 const taskDate = document.querySelector(".task-date");
 const allInputs = document.querySelectorAll(".task__input");
 
+const titleWarning = document.querySelector(".title-warning-text");
+const descWarning = document.querySelector(".description-warning-text");
+
 const GenerateID = function (existingIDs = []) {
   let sameId = true;
   let id;
@@ -47,14 +50,61 @@ const refreshList = function () {
     const delButton = document.getElementById(`delBtn-${task.id}`);
 
     delButton.addEventListener("click", function () {
-      const taskIndex = toDoList.findIndex(sTask => sTask.id === task.id);
-      toDoList.splice(taskIndex,1);
+      const taskIndex = toDoList.findIndex((sTask) => sTask.id === task.id);
+      toDoList.splice(taskIndex, 1);
       thisTaskID.remove();
     });
   });
 };
 
+
+const checkIfEmpty = function (inputsToCheck) {
+  const emptyInputs = inputsToCheck.filter((ololo) => ololo.value.length === 0);
+  if (emptyInputs.length === 0) {
+    return false;
+  } else {
+    return emptyInputs;
+  }
+};
+const checkLength = function () {
+  const maxTitleLength = 9;
+  if (taskTitle.value.length >= maxTitleLength) {
+    taskTitle.insertAdjacentHTML(
+      "beforebegin",
+      `<div class="event-warning"><i class="fa-solid fa-triangle-exclamation" style="color: #a51d2d;"></i> <span class="description-warning-text warning-text">Max title length is ${maxTitleLength}</span></div>`
+    );
+    return false;
+  }
+  return true;
+};
+const checkInputCorrectness = function (...tocheck) {
+  const emptyInputs = checkIfEmpty(tocheck);
+  if (emptyInputs) {
+    emptyInputs.forEach(function (input) {
+      input.insertAdjacentHTML(
+        "beforebegin",
+        `<div class="event-warning"><i class="fa-solid fa-triangle-exclamation" style="color: #a51d2d;"></i> <span class="description-warning-text warning-text">Wporwadź dane</span></div>`
+      );
+    });
+    return false;
+  }
+  const isLengthCorrect = checkLength();
+  if (!isLengthCorrect) {
+    return false;
+  }
+  return true;
+};
+const removeAllWarnings = function () {
+  document
+    .querySelectorAll(".event-warning")
+    ?.forEach((warning) => warning.remove());
+};
 const addToList = function () {
+  removeAllWarnings();
+  const isInputCorrect = checkInputCorrectness(taskTitle, taskDesc);
+  if (!isInputCorrect) {
+    return;
+  }
   toDoList.push({
     name: taskTitle.value,
     description: taskDesc.value,

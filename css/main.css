@@ -117,4 +117,12 @@ main {
   font-size: 3rem;
   width: 100%;
   cursor: pointer;
+}
+
+.event-warning {
+  color: rgb(158, 36, 36);
+  font-size: 1.5rem;
+}
+.event-warning .fa-triangle-exclamation {
+  font-size: 2rem;
 }/*# sourceMappingURL=main.css.map */
