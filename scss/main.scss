@@ -54,7 +54,9 @@ main {
     color: #8b8b8b;
     align-self: flex-end;
     justify-self: flex-end;
-    margin-right: 30px;
+    &--past{
+      color: #f20000;
+    }
   }
   &__description {
     font-size: 1.6rem;

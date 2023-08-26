@@ -29,13 +29,50 @@ const GenerateID = function (existingIDs = []) {
   }
   return id;
 };
+const calculateDateDiff = function (date1, date2 = new Date()) {
+  const dateObj1 = {
+    year: date1.getFullYear(),
+    month: date1.getMonth(),
+    day: date1.getDay(),
+  };
+  const dateObj2 = {
+    year: date2.getFullYear(),
+    month: date2.getMonth(),
+    day: date2.getDay(),
+  };
+  const dateDiff = {
+    years: dateObj1.year === dateObj2.year ? 0 : Math.abs(dateObj1.year - dateObj2.year),
+    months: dateObj1.month === dateObj2.month ? 0 : Math.abs(dateObj1.month - dateObj2.month),
+    days: dateObj1.day === dateObj2.day ? 0 : Math.abs(dateObj1.day - dateObj2.day),
+  };
+  return dateDiff;
+};
+const dateString = function(dateDiff,date){
+  const currentDate = new Date();
+  
+  if (dateDiff.years + dateDiff.months + dateDiff.days === 0)
+  {
+    return 'Today';
+  }
+  else if (dateDiff.years === 0 && dateDiff.months === 0 )
+  {
+     return `${dateDiff.days} ${dateDiff.days > 1 ? 'days' : 'day'}`;
+  }
+  else if (dateDiff.years === 0 && dateDiff.days === 0)
+  {
+    return `${dateDiff.months} ${dateDiff.months > 1 ? 'months' : 'month'}`
+  }
+  else {
+    return `${date.getDay()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+  }
+}
 const refreshList = function () {
   toDoListEl.innerHTML = "";
   toDoList.forEach(function (task) {
     const taskTemplate = `
     <div class="task" id="${task.id}">
       <h3 class="task__title" >${task.name}</h3>
-      <p class="task__date" >${task.date}</p>
+      <p class="task__date ${task.date > new Date() ? '' : 'task__date--past'}" >${task.date && dateString(calculateDateDiff(task.date),task.date)} ${task.date > new Date() ? '' : 'ago'}</p>
       <button class="task__delete-btn" id="delBtn-${task.id}">
       <i class="fa-solid fa-trash task__delete" style="color: #cc0000"></i>
       </button>
@@ -56,7 +93,6 @@ const refreshList = function () {
     });
   });
 };
-
 
 const checkIfEmpty = function (inputsToCheck) {
   const emptyInputs = inputsToCheck.filter((ololo) => ololo.value.length === 0);
@@ -108,7 +144,7 @@ const addToList = function () {
   toDoList.push({
     name: taskTitle.value,
     description: taskDesc.value,
-    date: taskDate.value ?? "",
+    date: taskDate.value && new Date(taskDate.value),
     id: GenerateID(),
   });
 
@@ -118,6 +154,5 @@ const addToList = function () {
   refreshList();
 };
 refreshList();
-const removeTask = function () {};
 
 subBtn.addEventListener("click", addToList);
