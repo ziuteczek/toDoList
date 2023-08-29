@@ -33,46 +33,48 @@ const calculateDateDiff = function (date1, date2 = new Date()) {
   const dateObj1 = {
     year: date1.getFullYear(),
     month: date1.getMonth(),
-    day: date1.getDay(),
+    day: date1.getDate(),
   };
   const dateObj2 = {
     year: date2.getFullYear(),
     month: date2.getMonth(),
-    day: date2.getDay(),
+    day: date2.getDate(),
   };
   const dateDiff = {
     years: dateObj1.year === dateObj2.year ? 0 : Math.abs(dateObj1.year - dateObj2.year),
     months: dateObj1.month === dateObj2.month ? 0 : Math.abs(dateObj1.month - dateObj2.month),
     days: dateObj1.day === dateObj2.day ? 0 : Math.abs(dateObj1.day - dateObj2.day),
   };
+  dateDiff.past = dateDiff.days + dateDiff.months + dateDiff.years && date1.getTime() < date2.getTime()
   return dateDiff;
 };
 const dateString = function(dateDiff,date){
-  const currentDate = new Date();
-  
   if (dateDiff.years + dateDiff.months + dateDiff.days === 0)
   {
     return 'Today';
   }
-  else if (dateDiff.years === 0 && dateDiff.months === 0 )
+  else if (dateDiff.years <= 1 && dateDiff.months <= 1 && dateDiff.days <= 30)
   {
      return `${dateDiff.days} ${dateDiff.days > 1 ? 'days' : 'day'}`;
   }
-  else if (dateDiff.years === 0 && dateDiff.days === 0)
+  else if (dateDiff.years <= 1 && dateDiff.days === 0)
   {
     return `${dateDiff.months} ${dateDiff.months > 1 ? 'months' : 'month'}`
   }
   else {
-    return `${date.getDay()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   }
 }
 const refreshList = function () {
   toDoListEl.innerHTML = "";
   toDoList.forEach(function (task) {
+    const dateDiff = calculateDateDiff(task.date);
+    
+    // !(Object.values(dateDiff).reduce((dateNumSum,dateNum) => dateNumSum+dateNum));
     const taskTemplate = `
     <div class="task" id="${task.id}">
       <h3 class="task__title" >${task.name}</h3>
-      <p class="task__date ${task.date > new Date() ? '' : 'task__date--past'}" >${task.date && dateString(calculateDateDiff(task.date),task.date)} ${task.date > new Date() ? '' : 'ago'}</p>
+      <p class="task__date ${dateDiff.past ? 'task__date--past' : ''}" >${task.date && dateString(dateDiff,task.date)} ${ dateDiff.past ? 'ago' : ''}</p>
       <button class="task__delete-btn" id="delBtn-${task.id}">
       <i class="fa-solid fa-trash task__delete" style="color: #cc0000"></i>
       </button>
@@ -135,6 +137,14 @@ const removeAllWarnings = function () {
     .querySelectorAll(".event-warning")
     ?.forEach((warning) => warning.remove());
 };
+
+
+
+
+
+
+
+
 const addToList = function () {
   removeAllWarnings();
   const isInputCorrect = checkInputCorrectness(taskTitle, taskDesc);
