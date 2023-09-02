@@ -29,6 +29,9 @@ const GenerateID = function (existingIDs = []) {
   }
   return id;
 };
+
+const daysInMonth = (year,month) => new Date(year,month + 1,0).getDate();
+
 const calculateDateDiff = function (date1, date2 = new Date()) {
   const dateObj1 = {
     year: date1.getFullYear(),
@@ -41,13 +44,21 @@ const calculateDateDiff = function (date1, date2 = new Date()) {
     day: date2.getDate(),
   };
   const dateDiff = {
-    years: dateObj1.year === dateObj2.year ? 0 : Math.abs(dateObj1.year - dateObj2.year),
-    months: dateObj1.month === dateObj2.month ? 0 : Math.abs(dateObj1.month - dateObj2.month),
-    days: dateObj1.day === dateObj2.day ? 0 : Math.abs(dateObj1.day - dateObj2.day),
+    years: Math.abs(dateObj1.year - dateObj2.year),
+    months: Math.abs(dateObj1.month - dateObj2.month),
   };
-  dateDiff.past = dateDiff.days + dateDiff.months + dateDiff.years && date1.getTime() < date2.getTime()
+  if(dateObj1.year === dateObj2.year && dateObj1.month === dateObj2.month)
+  {
+    dateDiff.days = Math.abs(dateObj1.day - dateObj2.day);
+  }
+  else
+  {
+   dateDiff.days = daysInMonth(dateObj1.year,dateObj1.month) - Math.abs(dateObj1.day - dateObj2.day);
+  }
+  dateDiff.past = dateDiff.days + dateDiff.months + dateDiff.years && date1.getTime() < date2.getTime();
   return dateDiff;
 };
+
 const dateString = function(dateDiff,date){
   if (dateDiff.years + dateDiff.months + dateDiff.days === 0)
   {
@@ -104,6 +115,7 @@ const checkIfEmpty = function (inputsToCheck) {
     return emptyInputs;
   }
 };
+
 const checkLength = function () {
   const maxTitleLength = 9;
   if (taskTitle.value.length >= maxTitleLength) {
@@ -115,6 +127,7 @@ const checkLength = function () {
   }
   return true;
 };
+
 const checkInputCorrectness = function (...tocheck) {
   const emptyInputs = checkIfEmpty(tocheck);
   if (emptyInputs) {
@@ -127,15 +140,11 @@ const checkInputCorrectness = function (...tocheck) {
     return false;
   }
   const isLengthCorrect = checkLength();
-  if (!isLengthCorrect) {
-    return false;
-  }
-  return true;
+
+  return isLengthCorrect ? true : false;
 };
 const removeAllWarnings = function () {
-  document
-    .querySelectorAll(".event-warning")
-    ?.forEach((warning) => warning.remove());
+  document .querySelectorAll(".event-warning")?.forEach((warning) => warning.remove());
 };
 
 
