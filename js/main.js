@@ -79,7 +79,7 @@ const dateString = function(dateDiff,date){
 const refreshList = function () {
   toDoListEl.innerHTML = "";
   toDoList.forEach(function (task) {
-    const dateDiff = calculateDateDiff(task.date);
+    const dateDiff = task.date && calculateDateDiff(task.date);
     
     // !(Object.values(dateDiff).reduce((dateNumSum,dateNum) => dateNumSum+dateNum));
     const taskTemplate = `
@@ -98,12 +98,26 @@ const refreshList = function () {
 
     const thisTaskID = document.getElementById(task.id);
     const delButton = document.getElementById(`delBtn-${task.id}`);
+    
+    const descritpionEl = thisTaskID.querySelector('.task__description');
+
+    if (descritpionEl.scrollHeight > descritpionEl.clientHeight)
+    {
+      const expandBtnTmpl = '<i class="task__arrow fa-solid fa-chevron-down"></i>';
+      thisTaskID.insertAdjacentHTML('beforeend',expandBtnTmpl)
+      const expandBtnEl = thisTaskID.querySelector('.task__arrow');
+      expandBtnEl.addEventListener('click', function(){
+        thisTaskID.classList.toggle('task--expanded');
+        expandBtnEl.classList.toggle('task__arrow--rotate')
+      })
+    }
 
     delButton.addEventListener("click", function () {
       const taskIndex = toDoList.findIndex((sTask) => sTask.id === task.id);
       toDoList.splice(taskIndex, 1);
       thisTaskID.remove();
     });
+
   });
 };
 

@@ -45,13 +45,18 @@ main {
 .task {
   display: grid;
   grid-template-columns: 2.5fr 2.5fr 1fr;
-  grid-template-rows: 1fr 3fr;
+  grid-template-rows: min-content 3fr min-content;
   overflow: hidden;
   border-radius: 10px;
   padding: 10px;
-  height: 150px;
+  height: 180px;
   margin: 20px;
+  transition: 1s;
   background-color: #d9d9d9;
+}
+.task--expanded {
+  height: -moz-min-content;
+  height: min-content;
 }
 .task__title {
   font-size: 3rem;
@@ -68,13 +73,15 @@ main {
 .task__description {
   font-size: 1.6rem;
   grid-column: 1/3;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
 .task__delete {
   font-size: 3rem;
   align-self: center;
   justify-self: center;
 }
-.task .task__delete-btn {
+.task__delete-btn {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -82,6 +89,19 @@ main {
   width: auto;
   overflow: visible;
   background: transparent;
+}
+.task__arrow {
+  grid-column: 1/-1;
+  grid-row: 3;
+  align-self: center;
+  justify-self: center;
+  font-size: 3rem;
+  color: #4e4e4e;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.task__arrow--rotate {
+  transform: rotate(180deg);
 }
 
 .event-input {
