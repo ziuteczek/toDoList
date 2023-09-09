@@ -60,12 +60,20 @@ main {
 }
 .task__title {
   font-size: 3rem;
+  grid-row: 1;
+  grid-column: 1;
+  width: 100%;
+  background-color: transparent;
+  border: none;
 }
 .task__date {
   font-size: 1.8rem;
   color: #8b8b8b;
   align-self: flex-end;
   justify-self: flex-end;
+  width: 100%;
+  background-color: transparent;
+  border: none;
 }
 .task__date--past {
   color: #f20000;
@@ -73,8 +81,16 @@ main {
 .task__description {
   font-size: 1.6rem;
   grid-column: 1/3;
+  grid-row: 2/4;
   overflow-wrap: break-word;
   overflow: hidden;
+  width: -moz-min-content;
+  width: min-content;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background-color: transparent;
+  border: none;
 }
 .task__delete {
   font-size: 3rem;
@@ -83,6 +99,8 @@ main {
 }
 .task__delete-btn {
   cursor: pointer;
+  grid-row: 1;
+  grid-column: 3;
   border: none;
   margin: 0;
   padding: 0;
@@ -102,6 +120,24 @@ main {
 }
 .task__arrow--rotate {
   transform: rotate(180deg);
+}
+.task .fa-x {
+  color: #f20000;
+  align-self: center;
+  margin-bottom: 1em;
+}
+.task__edit {
+  grid-column: 3;
+  grid-row: 2;
+  font-size: 4rem;
+  align-self: flex-end;
+  justify-self: center;
+  margin-bottom: 0.25em;
+  color: #8b8b8b;
+  cursor: pointer;
+}
+.task__edit--active {
+  color: rgb(14, 167, 14);
 }
 
 .event-input {

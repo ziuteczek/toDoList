@@ -1,3 +1,4 @@
+@use 'reset' as r;
 *,
 *::before,
 *::after {
@@ -52,12 +53,18 @@ main {
   }
   &__title {
     font-size: 3rem;
+    grid-row: 1;
+    grid-column: 1;
+    width:100%;
+    @include r.input;
   }
   &__date {
     font-size: 1.8rem;
     color: #8b8b8b;
     align-self: flex-end;
     justify-self: flex-end;
+    width: 100%;
+    @include r.input;
     &--past{
       color: #f20000;
     }
@@ -65,8 +72,14 @@ main {
   &__description {
     font-size: 1.6rem;
     grid-column: 1/3;
+    grid-row: 2/4;
     overflow-wrap: break-word;
     overflow: hidden;
+    width: min-content;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    @include r.input;
   }
   &__delete {
     font-size: 3rem;
@@ -75,6 +88,8 @@ main {
   }
   &__delete-btn {
     cursor: pointer;
+    grid-row: 1;
+    grid-column: 3;
     border: none;
     margin: 0;
     padding: 0;
@@ -93,6 +108,24 @@ main {
     cursor: pointer;
     &--rotate{
       transform: rotate(180deg);
+    }
+  }
+  .fa-x {
+    color: #f20000;
+    align-self: center;
+    margin-bottom: 1em;
+  }
+  &__edit {
+    grid-column: 3;
+    grid-row:2;
+    font-size: 4rem;
+    align-self: flex-end;
+    justify-self: center;
+    margin-bottom: .25em;
+    color: #8b8b8b;
+    cursor: pointer;
+    &--active{
+      color: rgb(14, 167, 14);
     }
   }
 }

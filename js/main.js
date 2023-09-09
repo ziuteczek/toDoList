@@ -92,13 +92,16 @@ const refreshList = function () {
       <p class="task__description">
        ${task.description}
       </p>
+      <i class="fa-solid fa-pen-to-square task__edit"></i>
     </div>
     `;
     toDoListEl.insertAdjacentHTML("afterbegin", taskTemplate);
 
     const thisTaskID = document.getElementById(task.id);
+
     const delButton = document.getElementById(`delBtn-${task.id}`);
-    
+    const editBtn = thisTaskID.querySelector('.task__edit');
+
     const descritpionEl = thisTaskID.querySelector('.task__description');
 
     if (descritpionEl.scrollHeight > descritpionEl.clientHeight)
@@ -111,6 +114,65 @@ const refreshList = function () {
         expandBtnEl.classList.toggle('task__arrow--rotate')
       })
     }
+
+    editBtn.addEventListener('click',function(){
+      
+      editBtn.classList.toggle('task__edit--active')
+      const editableElements ={
+        title: thisTaskID.querySelector('.task__title'),
+        description: thisTaskID.querySelector('.task__description'),
+        date: thisTaskID.querySelector('.task__date'),
+      }
+      const editableElementsEl = [];
+      Object.values(editableElements).forEach(function(element,i){
+        const elementClasses = element.classList;
+        const elementData = element.textContent;
+
+        element.remove();
+
+        let elementTemplate;
+
+        switch (i){
+          case 0:
+            elementTemplate = `<input class="${elementClasses}" type="text">`;
+            break;
+          case 1:
+            elementTemplate = `<textarea class="${elementClasses}"><textarea>`;
+            break;
+          case 2:
+            elementTemplate = `<input class="${elementClasses}" type="date">`;
+            break;
+        }
+        thisTaskID.insertAdjacentHTML('beforeend',elementTemplate);
+        const taskInput = thisTaskID.querySelector(`.${elementClasses[0]}`);
+        taskInput.value = elementData.trim();
+        editableElementsEl.push(taskInput);
+      });
+      editBtn.remove();
+
+      const saveEditBtn = '<i class="fa-solid fa-floppy-disk task__edit"></i>';
+      const notSaveEditBtn = `<i class="fa-solid fa-x task__edit"></i>`;
+      thisTaskID.insertAdjacentHTML("beforeend",saveEditBtn);
+      thisTaskID.insertAdjacentHTML("beforeend",notSaveEditBtn);
+      const saveEditBtnEl = thisTaskID.querySelector('.fa-floppy-disk');
+      const notSaveEditBtnEl = thisTaskID.querySelector('.fa-x');
+
+      notSaveEditBtnEl.addEventListener('click',function(){
+        refreshList();
+      });
+      saveEditBtnEl.addEventListener('click',function() {
+         const indexOfTask = toDoList.findIndex(element => element.id === task.id);
+         
+         toDoList[indexOfTask] = 
+         {
+          name: thisTaskID.querySelector('.task__title').value.trim(),
+          description: thisTaskID.querySelector('.task__description').value.trim(),
+          date: thisTaskID.querySelector('.task__date').value && new Date(thisTaskID.querySelector('.task__date').value),
+          id: GenerateID(),
+        };
+        refreshList();
+       });
+    });
 
     delButton.addEventListener("click", function () {
       const taskIndex = toDoList.findIndex((sTask) => sTask.id === task.id);
