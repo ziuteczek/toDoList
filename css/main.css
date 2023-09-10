@@ -157,7 +157,8 @@ main {
   resize: none;
   font-size: 2rem;
 }
-.event-input input, .event-input textarea {
+.event-input input,
+.event-input textarea {
   margin-bottom: 3rem;
 }
 .event-input .event-title {
@@ -183,4 +184,4 @@ main {
 }
 .event-warning .fa-triangle-exclamation {
   font-size: 2rem;
-}/*# sourceMappingURL=main.css.map */
+} /*# sourceMappingURL=main.css.map */

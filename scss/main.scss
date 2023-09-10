@@ -1,4 +1,4 @@
-@use 'reset' as r;
+@use "reset" as r;
 *,
 *::before,
 *::after {
@@ -12,7 +12,7 @@ html {
 body {
   background-color: #eee;
   height: 100vh;
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: "Bricolage Grotesque", sans-serif;
 }
 .wrapper {
   max-width: 1200px;
@@ -48,14 +48,14 @@ main {
   margin: 20px;
   transition: 1s;
   background-color: #d9d9d9;
-  &--expanded{
+  &--expanded {
     height: min-content;
   }
   &__title {
     font-size: 3rem;
     grid-row: 1;
     grid-column: 1;
-    width:100%;
+    width: 100%;
     @include r.input;
   }
   &__date {
@@ -65,7 +65,7 @@ main {
     justify-self: flex-end;
     width: 100%;
     @include r.input;
-    &--past{
+    &--past {
       color: #f20000;
     }
   }
@@ -104,9 +104,9 @@ main {
     justify-self: center;
     font-size: 3rem;
     color: #4e4e4e;
-    transition: .3s;
+    transition: 0.3s;
     cursor: pointer;
-    &--rotate{
+    &--rotate {
       transform: rotate(180deg);
     }
   }
@@ -117,21 +117,21 @@ main {
   }
   &__edit {
     grid-column: 3;
-    grid-row:2;
+    grid-row: 2;
     font-size: 4rem;
     align-self: flex-end;
     justify-self: center;
-    margin-bottom: .25em;
+    margin-bottom: 0.25em;
     color: #8b8b8b;
     cursor: pointer;
-    &--active{
+    &--active {
       color: rgb(14, 167, 14);
     }
   }
 }
 .event-input {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-self: center;
   justify-self: flex-end;
   margin-left: 10px;
@@ -145,7 +145,8 @@ main {
     resize: none;
     font-size: 2rem;
   }
-  input, textarea {
+  input,
+  textarea {
     margin-bottom: 3rem;
   }
   .event-title {
@@ -155,7 +156,7 @@ main {
     height: 300px;
   }
   button {
-    padding: 1em .5em;
+    padding: 1em 0.5em;
     background-color: rgb(33, 136, 33);
     box-shadow: none;
     color: #ccc;
