@@ -137,7 +137,7 @@ main {
   cursor: pointer;
 }
 .task__edit--active {
-  color: rgb(14, 167, 14);
+  color: rgb(27, 187, 27);
 }
 
 .event-input {
@@ -184,4 +184,4 @@ main {
 }
 .event-warning .fa-triangle-exclamation {
   font-size: 2rem;
-} /*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
