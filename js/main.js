@@ -189,11 +189,7 @@ const refreshList = function () {
 
 const checkIfEmpty = function (inputsToCheck) {
   const emptyInputs = inputsToCheck.filter((ololo) => ololo.value.length === 0);
-  if (emptyInputs.length === 0) {
-    return false;
-  } else {
-    return emptyInputs;
-  }
+  return emptyInputs.length === 0 ? false : emptyInputs;
 };
 
 const checkLength = function () {
@@ -219,9 +215,7 @@ const checkInputCorrectness = function (...tocheck) {
     });
     return false;
   }
-  const isLengthCorrect = checkLength();
-
-  return isLengthCorrect ? true : false;
+  return checkLength();
 };
 const removeAllWarnings = function () {
   document
